@@ -359,8 +359,7 @@ export default function Home() {
               <h4>Cloud & Infra</h4>
               <p>Google Cloud</p>
               <p>AWS</p>
-              <p>Render</p>
-              <p>Vercel</p>
+              <p>Azure DevOps</p>
             </div>
             <div>
               <h4>Observabilidade</h4>
