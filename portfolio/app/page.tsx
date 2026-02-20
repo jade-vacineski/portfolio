@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { type TouchEvent, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import SchoolIcon from "@mui/icons-material/School";
 import CodeIcon from "@mui/icons-material/Code";
@@ -8,7 +8,39 @@ import WorkIcon from "@mui/icons-material/Work";
 
 export default function Home() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const carouselTouchStartRef = useRef<{ x: number; y: number } | null>(null);
   const [projectSlide, setProjectSlide] = useState(0);
+  const projectSlidesCount = 2;
+
+  const goToProjectSlide = (index: number) => {
+    const normalized = (index + projectSlidesCount) % projectSlidesCount;
+    setProjectSlide(normalized);
+  };
+
+  const onProjectTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    if (!touch) return;
+    carouselTouchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const onProjectTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    const start = carouselTouchStartRef.current;
+    carouselTouchStartRef.current = null;
+    if (!start) return;
+
+    const touch = event.changedTouches[0];
+    if (!touch) return;
+
+    const deltaX = touch.clientX - start.x;
+    const deltaY = touch.clientY - start.y;
+    const absX = Math.abs(deltaX);
+    const absY = Math.abs(deltaY);
+
+    // Prioriza o scroll vertical; só troca slide em gesto horizontal claro.
+    if (absX < 35 || absX <= absY) return;
+
+    goToProjectSlide(deltaX < 0 ? projectSlide + 1 : projectSlide - 1);
+  };
 
   useLayoutEffect(() => {
     const resetScroll = () => {
@@ -206,8 +238,12 @@ export default function Home() {
 
         <section className="section panel" id="projeto-principal">
           <h2>Projetos</h2>
-          <div className="project-layout">
-            <div className="project-carousel">
+            <div className="project-layout">
+              <div
+                className="project-carousel"
+                onTouchStart={onProjectTouchStart}
+                onTouchEnd={onProjectTouchEnd}
+              >
               <div className="project-stage">
                 {projectSlide === 0 ? (
                   <aside className="project-showcase" aria-label="Banner do projeto RETAG">
@@ -255,14 +291,14 @@ export default function Home() {
               <button
                 type="button"
                 className={projectSlide === 0 ? "dot active" : "dot"}
-                onClick={() => setProjectSlide(0)}
+                onClick={() => goToProjectSlide(0)}
                 aria-label="Mostrar banner"
                 aria-current={projectSlide === 0}
               />
               <button
                 type="button"
                 className={projectSlide === 1 ? "dot active" : "dot"}
-                onClick={() => setProjectSlide(1)}
+                onClick={() => goToProjectSlide(1)}
                 aria-label="Mostrar segundo banner"
                 aria-current={projectSlide === 1}
               />
