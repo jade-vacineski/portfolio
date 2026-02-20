@@ -2,10 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SchoolIcon from "@mui/icons-material/School";
-import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
-import TerminalIcon from "@mui/icons-material/Terminal";
 import CodeIcon from "@mui/icons-material/Code";
 import WorkIcon from "@mui/icons-material/Work";
 
@@ -131,7 +128,6 @@ export default function Home() {
               <a href="#sobre">Sobre</a>
               <a href="#projeto-principal">Projetos</a>
               <a href="#stack">Stack</a>
-              <a href="#contato">Contato</a>
             </nav>
           </header>
 
@@ -147,14 +143,16 @@ export default function Home() {
                 <p className="role">Software Engineer</p>
 
                 <div className="hero-actions">
-                  <a href="#projeto-principal">Projetos</a>
-                  <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">
+                  <a href="mailto:jadenogueira8881@gmail.com">Email</a>
+                  <a href="https://www.linkedin.com/in/ajadnevacineski/" target="_blank" rel="noreferrer">
                     LinkedIn
                   </a>
-                  <a href="https://github.com" target="_blank" rel="noreferrer">
+                  <a href="https://github.com/jade-vacineski" target="_blank" rel="noreferrer">
                     GitHub
                   </a>
-                  <a href="#contato">Contato</a>
+                  <a href="#" target="_blank" rel="noreferrer">
+                    CV
+                  </a>
                 </div>
               </div>
 
@@ -365,22 +363,6 @@ export default function Home() {
               <h4>Observabilidade</h4>
               <p>Datadog</p>
             </div>
-          </div>
-        </section>
-
-        <section className="section panel" id="contato">
-          <h2>Contato</h2>
-          <div className="contact-list">
-            <a href="mailto:jadenogueira8881@gmail.com">Email</a>
-            <a href="https://www.linkedin.com/in/ajadnevacineski/" target="_blank" rel="noreferrer">
-              LinkedIn
-            </a>
-            <a href="https://github.com/jade-vacineski" target="_blank" rel="noreferrer">
-              GitHub
-            </a>
-            <a href="#" target="_blank" rel="noreferrer">
-              CV
-            </a>
           </div>
         </section>
       </main>
